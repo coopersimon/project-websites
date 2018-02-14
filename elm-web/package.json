@@ -1,0 +1,20 @@
+{
+  "name": "elm-web",
+  "version": "1.0.0",
+  "description": "Test website for elm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "elm-make src/main.elm",
+    "start": "node index.js",
+    "poststart": "firefox localhost:8081"
+  },
+  "dependencies": {
+    "elm": "^0.18.0"
+  },
+  "devDependencies": {
+    "express": "^4.16.2"
+  },
+  "author": "Simon Cooper",
+  "license": "ISC"
+}

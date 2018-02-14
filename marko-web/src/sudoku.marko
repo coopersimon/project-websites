@@ -1,0 +1,96 @@
+class {
+    NewSquareArray(size) {
+        var array = new Array(size);
+    
+        for (var i = 0; i < size; i++) {
+            array[i] = new Array(size);
+            array[i].fill({num: "", variable: true});
+        }
+    
+        return array;
+    }
+    
+    // static: should either generate or read from database
+    NewSudoku() {
+        var init = this.NewSquareArray(9);
+    
+        init[4][0] = {num: "5", variable: false};
+        init[6][0] = {num: "6", variable: false};
+        init[7][0] = {num: "2", variable: false};
+        init[8][0] = {num: "7", variable: false};
+                  
+        init[2][1] = {num: "6", variable: false};
+        init[3][1] = {num: "9", variable: false};
+        init[8][1] = {num: "1", variable: false};
+                  
+        init[0][2] = {num: "7", variable: false};
+        init[1][2] = {num: "4", variable: false};
+        init[2][2] = {num: "2", variable: false};
+        init[3][2] = {num: "6", variable: false};
+                  
+        init[0][3] = {num: "5", variable: false};
+        init[3][3] = {num: "1", variable: false};
+                  
+        init[2][4] = {num: "9", variable: false};
+        init[3][4] = {num: "3", variable: false};
+        init[4][4] = {num: "4", variable: false};
+        init[5][4] = {num: "2", variable: false};
+        init[6][4] = {num: "5", variable: false};
+                  
+        init[5][5] = {num: "9", variable: false};
+        init[8][5] = {num: "2", variable: false};
+                  
+        init[5][6] = {num: "4", variable: false};
+        init[6][6] = {num: "8", variable: false};
+        init[7][6] = {num: "5", variable: false};
+        init[8][6] = {num: "6", variable: false};
+                  
+        init[0][7] = {num: "4", variable: false};
+        init[5][7] = {num: "6", variable: false};
+        init[6][7] = {num: "1", variable: false};
+                  
+        init[0][8] = {num: "1", variable: false};
+        init[1][8] = {num: "6", variable: false};
+        init[2][8] = {num: "7", variable: false};
+        init[4][8] = {num: "3", variable: false};
+    
+        return init;
+    }
+
+    onCreate() {
+        this.state = {
+            squares: this.NewSudoku(),
+        };
+    }
+
+    /*handleInput(x,y,event,el) {
+        console.log("change at " + x.toString() + ", " + y.toString());
+        const num = event.target.value;
+        if (num.length <= 1 && !isNaN(num)) {
+            const squares = this.state.squares.slice();
+            squares[y][x] = {num: num, variable: true};
+            this.setState({
+                squares: squares,
+            });
+        }
+    }*/
+
+    handleInput(event, el) {
+        console.log("change!");
+        alert("!!!");
+    }
+}
+
+link rel='stylesheet' type='text/css' href='index.css'
+div class='su-grid'
+    for(row in state.squares | status-var=y)
+        div class='su-row'
+            for(sq in row | status-var=x)
+                if(sq.variable)
+                    div class='su-square'
+                        //input type='text' value=sq.num on-change('handleInput', x.getIndex(), y.getIndex()) class='sq-input'
+                        //input type='text' value=sq.num on-change('handleInput') class='sq-input'
+                        button on-click('handleInput') -- click
+                else
+                    div class='su-square sq-input'
+                        b -- ${sq.num}
