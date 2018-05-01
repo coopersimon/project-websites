@@ -1,0 +1,6 @@
+Todo:
+
+Backend - add database of sudokus (auto generate?)
+Backend - switch to suave
+Add validity checker
+Potentially add more controls

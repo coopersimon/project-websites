@@ -1,3 +1,14 @@
+export function NewSquareArray(size) {
+    var array = new Array(size);
+
+    for (var i = 0; i < size; i++) {
+        array[i] = new Array(size);
+        array[i].fill({num: "", variable: true});
+    }
+
+    return array;
+}
+
 // Checks array has numbers 1-9 in it
 function CheckComplete(arr) {
     arr.sort();
@@ -22,7 +33,7 @@ function CheckSet(access) {
     return true;
 }
 
-function CheckSudoku(sudoku) {
+export function CheckSudoku(sudoku) {
     return CheckSet((i, j) => {
             return sudoku[i][j];
         }) &&
@@ -39,8 +50,6 @@ function CheckSudoku(sudoku) {
             return sudoku[y][x];
         });
 }
-
-export default CheckSudoku
 
 /*var sudoku = [
     [9,1,8,4,5,3,6,2,7],
