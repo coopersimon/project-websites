@@ -1,3 +1,6 @@
+import './index.css'
+import CheckSudoku from './sulib'
+
 class {
     NewSquareArray(size) {
         var array = new Array(size);
@@ -59,12 +62,33 @@ class {
 
     onCreate() {
         this.state = {
-            squares: this.NewSudoku(),
+            squares: this.NewSquareArray(9),
         };
+
+        this.getSudoku();
     }
 
-    /*handleInput(x,y,event,el) {
-        console.log("change at " + x.toString() + ", " + y.toString());
+    // gets from database
+    getSudoku() {
+        fetch('/sudoku')
+            .then((res) => res.json())
+            .then((data) => {
+                this.setState({
+                    squares: data.sudoku.map((row) => {
+                        return row.map((val) => {
+                            if (val == 0) {
+                                return {num: "", variable: true};
+                            } else {
+                                return {num: val.toString(), variable: false};
+                            }
+                        });
+                    }),
+                });
+            })
+            .catch((error) => console.log(error));
+    }
+
+    handleInput(x,y,event,el) {
         const num = event.target.value;
         if (num.length <= 1 && !isNaN(num)) {
             const squares = this.state.squares.slice();
@@ -72,25 +96,41 @@ class {
             this.setState({
                 squares: squares,
             });
+        } else {
+            event.target.value = this.state.squares[y][x].num;
         }
-    }*/
+    }
 
-    handleInput(event, el) {
-        console.log("change!");
-        alert("!!!");
+    checkCorrect(event, el) {
+        try {
+            var sudokuVals = this.state.squares.map((row) => {
+                return row.map((val) => {
+                    return parseInt(val.num);
+                });
+            });
+        } catch(e) {
+            console.log("Error: " + e);
+            return;
+        }
+
+        if (CheckSudoku(sudokuVals)) {
+            console.log("Yay!");
+        } else {
+            console.log("Nope.");
+        }
     }
 }
 
-link rel='stylesheet' type='text/css' href='index.css'
+//link rel='stylesheet' type='text/css' href='index.css'
 div class='su-grid'
     for(row in state.squares | status-var=y)
         div class='su-row'
             for(sq in row | status-var=x)
                 if(sq.variable)
                     div class='su-square'
-                        //input type='text' value=sq.num on-change('handleInput', x.getIndex(), y.getIndex()) class='sq-input'
-                        //input type='text' value=sq.num on-change('handleInput') class='sq-input'
-                        button on-click('handleInput') -- click
+                        input type='text' value=sq.num on-input('handleInput', x.getIndex(), y.getIndex()) class='sq-input'
                 else
                     div class='su-square sq-input'
                         b -- ${sq.num}
+div
+    button on-click('checkCorrect') -- Check!
