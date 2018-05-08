@@ -1,8 +1,10 @@
-import './index.css'
-import CheckSudoku from './sulib'
+import './index.css';
+import { CheckSudoku } from './sulib';
+//import { createStore } from 'redux';
+//import rootReducer from './reducers';
 
 class {
-    NewSquareArray(size) {
+    /*NewSquareArray(size) {
         var array = new Array(size);
     
         for (var i = 0; i < size; i++) {
@@ -11,40 +13,36 @@ class {
         }
     
         return array;
-    }
+    }*/
     
     onCreate() {
-        this.state = {
+        /*this.state = {
             squares: this.NewSquareArray(9),
-        };
+        };*/
 
         this.getSudoku();
     }
+
+    /*onMount() {
+        store.subscribe(() => {
+            this.forceUpdate();
+        });
+    }*/
 
     // gets from database
     getSudoku() {
         fetch('/sudoku')
             .then((res) => res.json())
             .then((data) => {
-                this.setState({
-                    squares: data.sudoku.map((row) => {
-                        return row.map((val) => {
-                            if (val == 0) {
-                                return {num: "", variable: true};
-                            } else {
-                                return {num: val.toString(), variable: false};
-                            }
-                        });
-                    }),
-                });
+                this.props.setSudoku(data.sudoku);
             })
             .catch((error) => console.log(error));
     }
 
-    handleInput(x,y,event,el) {
+    /*handleInput(x,y,event,el) {
         const num = event.target.value;
         if (num.length <= 1 && !isNaN(num)) {
-            const squares = this.state.squares.slice();
+            const squares = this.props.squares.slice();
             squares[y][x] = {num: num, variable: true};
             this.setState({
                 squares: squares,
@@ -52,11 +50,11 @@ class {
         } else {
             event.target.value = this.state.squares[y][x].num;
         }
-    }
+    }*/
 
     checkCorrect(event, el) {
         try {
-            var sudokuVals = this.state.squares.map((row) => {
+            var sudokuVals = this.props.squares.map((row) => {
                 return row.map((val) => {
                     return parseInt(val.num);
                 });
@@ -75,6 +73,7 @@ class {
 }
 
 //link rel='stylesheet' type='text/css' href='index.css'
+//provider store=createStore(rootReducer)
 div class='su-grid'
     for(row in state.squares | status-var=y)
         div class='su-row'

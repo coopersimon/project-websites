@@ -5,11 +5,6 @@ import {NewSquareArray, CheckSudoku} from './sulib'
 class Sudoku extends React.Component {
     constructor(props) {
         super(props);
-        // action!
-        // async dispatch? initial state needs to be set elsewhere
-        /*this.state = {
-            squares: NewSquareArray(9),
-        };*/
         this.getSudoku();
     }
 
@@ -37,21 +32,8 @@ class Sudoku extends React.Component {
         );
     }
 
-    /*handleInput(event, y, x) {
-        const num = event.target.value;
-        if (num.length <= 1 && !isNaN(num)) {
-            // action! (dispatch)
-            const squares = this.state.squares.slice();
-            squares[y][x] = {num: num, variable: true};
-            this.setState({
-                squares: squares,
-            });
-        }
-    }*/
-
     checkCorrect(event) {
         try {
-            // read state!
             var sudokuVals = this.props.squares.map((row) => {
                 return row.map((val) => {
                     return parseInt(val.num);
@@ -74,23 +56,10 @@ class Sudoku extends React.Component {
         fetch('/sudoku')
             .then((res) => res.json())
             .then((data) => {
-            /*    this.setState({
-                    squares: data.sudoku.map((row) => {
-                        return row.map((val) => {
-                            if (val == 0) {
-                                return {num: "", variable: true};
-                            } else {
-                                return {num: val.toString(), variable: false};
-                            }
-                        });
-                    }),
-                });*/
                 this.props.setSudoku(data.sudoku);
             })
             .catch((error) => console.log(error));
     }
-
-    // check for correctness
 }
 
 class SudokuSquare extends React.Component {
