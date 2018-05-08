@@ -1199,7 +1199,7 @@ var SudokuSquare = function (_React$Component2) {
                         style: { borderRightWidth: boldRight, borderBottomWidth: boldBottom }
                     },
                     _react2.default.createElement(
-                        'b',
+                        'strong',
                         null,
                         this.props.value
                     )

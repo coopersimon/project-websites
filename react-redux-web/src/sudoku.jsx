@@ -86,7 +86,7 @@ class SudokuSquare extends React.Component {
                  className="su-square sq-input"
                  style={{borderRightWidth: boldRight, borderBottomWidth: boldBottom}}
                 >
-                    <b>{this.props.value}</b>
+                    <strong>{this.props.value}</strong>
                 </div>
             );
         }

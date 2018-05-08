@@ -73,7 +73,7 @@ renderSq l sq =
                 [input [type_ "text", value (valueSq v), class "sq-input", onInput (fill l)] []]
         Static v ->
             div [class "su-square sq-input"]
-                [b [] [text (toString v)]]
+                [strong [] [text (toString v)]]
 
 renderRow : Coord -> List Sq -> Html Msg
 renderRow l r =
