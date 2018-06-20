@@ -1,3 +1,5 @@
 node_modules/
 *.swp
 elm-stuff/
+fable-web/
+fback-react-web/

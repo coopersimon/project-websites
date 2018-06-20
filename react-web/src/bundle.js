@@ -996,53 +996,6 @@ function NewSquareArray(size) {
     return array;
 }
 
-// static: should either generate or read from database
-function NewSudoku() {
-    var init = NewSquareArray(9);
-
-    init[4][0] = { num: "5", variable: false };
-    init[6][0] = { num: "6", variable: false };
-    init[7][0] = { num: "2", variable: false };
-    init[8][0] = { num: "7", variable: false };
-
-    init[2][1] = { num: "6", variable: false };
-    init[3][1] = { num: "9", variable: false };
-    init[8][1] = { num: "1", variable: false };
-
-    init[0][2] = { num: "7", variable: false };
-    init[1][2] = { num: "4", variable: false };
-    init[2][2] = { num: "2", variable: false };
-    init[3][2] = { num: "6", variable: false };
-
-    init[0][3] = { num: "5", variable: false };
-    init[3][3] = { num: "1", variable: false };
-
-    init[2][4] = { num: "9", variable: false };
-    init[3][4] = { num: "3", variable: false };
-    init[4][4] = { num: "4", variable: false };
-    init[5][4] = { num: "2", variable: false };
-    init[6][4] = { num: "5", variable: false };
-
-    init[5][5] = { num: "9", variable: false };
-    init[8][5] = { num: "2", variable: false };
-
-    init[5][6] = { num: "4", variable: false };
-    init[6][6] = { num: "8", variable: false };
-    init[7][6] = { num: "5", variable: false };
-    init[8][6] = { num: "6", variable: false };
-
-    init[0][7] = { num: "4", variable: false };
-    init[5][7] = { num: "6", variable: false };
-    init[6][7] = { num: "1", variable: false };
-
-    init[0][8] = { num: "1", variable: false };
-    init[1][8] = { num: "6", variable: false };
-    init[2][8] = { num: "7", variable: false };
-    init[4][8] = { num: "3", variable: false };
-
-    return init;
-}
-
 var Sudoku = function (_React$Component) {
     _inherits(Sudoku, _React$Component);
 
@@ -1052,7 +1005,8 @@ var Sudoku = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Sudoku.__proto__ || Object.getPrototypeOf(Sudoku)).call(this, props));
 
         _this.state = {
-            squares: NewSquareArray(9)
+            squares: NewSquareArray(9),
+            complete: false
         };
         _this.getSudoku();
         return _this;
@@ -1087,13 +1041,16 @@ var Sudoku = function (_React$Component) {
                         );
                     })
                 ),
-                '// if correct - generate new sudoku ?',
-                _react2.default.createElement(
+                !this.state.complete ? _react2.default.createElement(
                     'button',
                     { onClick: function onClick(event) {
                             return _this2.checkCorrect(event);
                         } },
                     ' Check! '
+                ) : _react2.default.createElement(
+                    'span',
+                    null,
+                    ' Correct! '
                 )
             );
         }
@@ -1124,10 +1081,12 @@ var Sudoku = function (_React$Component) {
             }
 
             if ((0, _sulib2.default)(sudokuVals)) {
-                console.log("Yay!");
-            } else {
+                this.setState({
+                    complete: true
+                });
+            } /*else {
                 console.log("Nope.");
-            }
+              }*/
         }
 
         // gets from database
